@@ -68,8 +68,10 @@ Repositories are the only way to reach app data, and only app models leave the d
 - Repositories let exceptions propagate. The ViewModel decides how to show them.
 - An offline-first repository has a `suspend` refresh function (`refreshItems()`) that fetches from the network and writes to Room. The ViewModel calls it in `viewModelScope.launch` when the screen opens and on pull-to-refresh. If it fails, the stored data stays on screen and the error is transient.
 - Inject dispatchers with a qualifier (`@IoDispatcher`). Never use `Dispatchers.*` directly.
-- Room schema changes use `AutoMigration` when possible and a manual `Migration` when needed, such as when data must be transformed. Never use `fallbackToDestructiveMigration`.
-- Room uses `exportSchema = true`, and the schema files are committed to Git.
+- Room means Room 3 (`androidx.room3`), never Room 2 (`androidx.room`). It uses KSP and the `androidx.room3` Gradle plugin, and the database is built with `.setDriver(BundledSQLiteDriver())` from `androidx.sqlite:sqlite-bundled`.
+- DAO functions are `suspend` or return `Flow`.
+- Room schema changes use `AutoMigration` when possible and a manual `Migration` when needed, such as when data must be transformed. A manual `Migration` overrides `suspend fun migrate(connection: SQLiteConnection)`. Never use `fallbackToDestructiveMigration`.
+- Room uses `exportSchema = true` and `room3 { schemaDirectory("$projectDir/schemas") }`, and the schema files are committed to Git.
 
 ### Domain layer (optional)
 
@@ -121,7 +123,7 @@ Each `XScreen.kt` holds two composables, `XRoute` and `XScreen`.
   - Blocking: content couldn't be loaded. Turn the flow's expected exceptions into `Error` with `.catch` before `stateIn`, and show it with retry or back.
   - Transient: an action failed while content is shown. Keep the content and show a snackbar through a one-time message.
 - On content screens, retry restarts the content flow: build it inside `retryTrigger.flatMapLatest { … }`, with `.catch` and `onStart { emit(XUiState.Loading) }` inside, where `retryTrigger` is a private `MutableStateFlow<Int>` that `retry()` increments.
-- Catch only expected exceptions (`IOException`, `HttpException`, `android.database.SQLException`). Never catch `Exception` or `Throwable`, and never wrap suspend calls in `runCatching`. These exception types are a deliberate exception to layers keeping their types to themselves: a ViewModel may import them, and nothing else from the libraries behind the data layer. A `SerializationException` from unexpected JSON is a programming error and is not caught.
+- Catch only expected exceptions (`IOException`, `HttpException`, `android.database.SQLException`). Never catch `Exception` or `Throwable`, and never wrap suspend calls in `runCatching`. These exception types are a deliberate exception to layers keeping their types to themselves: a ViewModel may import them, and nothing else from the libraries behind the data layer. On Android, Room 3 reports SQL errors as `android.database.SQLException`, also with the bundled driver. A `SerializationException` from unexpected JSON is a programming error and is not caught.
 - One-time messages are a `UserMessage` enum in a separate `StateFlow<UserMessage?>`, backed by a private `MutableStateFlow`. The Route shows it and calls `onMessageShown()`. `core.ui` turns `UserMessage` into text.
 - Messages that must outlive their screen, such as "not found" after leaving it, go through the app-wide message queue, shown by the root `SnackbarHost`.
 

@@ -75,7 +75,8 @@ Create the branch with `git switch -c chore/project-setup`.
 - `feature.<first-screen>`: a Route and a Screen showing only a title, and its navigation file, so
   that the app can start.
 - `core.database`, only if the app uses Room: an empty start is not possible, so create the database
-  with the first feature's entities. Add only the schema export directory and the build setup here.
+  with the first feature's entities. Add only the schema export directory and the build setup here:
+  Room 3 (`androidx.room3`) with its Gradle plugin and KSP, and `androidx.sqlite:sqlite-bundled`.
 - `core.network`, only if the app uses the network: the Hilt module with Retrofit and the app's
   `Json` configuration.
 - Tests in `src/test`: the shared JUnit rule for `Dispatchers.Main`, `FakeMessageQueue`, and the tests
