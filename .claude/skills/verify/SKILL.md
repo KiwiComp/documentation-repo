@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Build the Android app, run the unit tests and lint, check layer imports and, when needed, run the instrumented tests, then report the results. Use after every code change, before a pull request, or when the developer asks to verify the project.
+description: Build the Android app and its instrumented tests, run the unit tests and lint, check layer imports and, when needed, run the instrumented tests, then report the results. Use after every code change, before a pull request, or when the developer asks to verify the project.
 ---
 
 # Verify
@@ -16,17 +16,17 @@ example `assembleDevDebug` and `lintDevDebug`; `./gradlew tasks` lists them.
 ## Checks
 
 1. `./gradlew assembleDebug`
-2. `./gradlew testDebugUnitTest`
-3. `./gradlew lintDebug`
-4. Static analysis, only if the project configures it (for example detekt, ktlint or Spotless in the
+2. `./gradlew assembleDebugAndroidTest`, which compiles the instrumented tests without a device
+3. `./gradlew testDebugUnitTest`
+4. `./gradlew lintDebug`
+5. Static analysis, only if the project configures it (for example detekt, ktlint or Spotless in the
    Gradle build files): run its check task, such as `./gradlew detekt`, `./gradlew ktlintCheck` or
    `./gradlew spotlessCheck`. Never run a task that rewrites files, such as `spotlessApply` or
    `ktlintFormat`, unless the developer asks.
-5. Layer imports: compare the imports in the changed Kotlin files under `src/main/` (find them as in
-   step 6) with the import rules in `docs/agents/architecture-principles.md`. Each forbidden import
+6. Layer imports: compare the imports in the changed Kotlin files under `src/main/` (find them as in
+   step 7) with the import rules in `docs/agents/architecture-principles.md`. Each forbidden import
    is a failure.
-   If the file does not exist, skip this check and say so.
-6. `./gradlew connectedDebugAndroidTest`, only when androidTest code or the code it covers changed:
+7. `./gradlew connectedDebugAndroidTest`, only when androidTest code or the code it covers changed:
    - Find the changed files with `git diff --name-only <default-branch>...HEAD` and
      `git diff --name-only HEAD`, plus untracked files from `git status --porcelain`. Find the
      default branch with `gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`; if that
@@ -50,7 +50,8 @@ example `assembleDevDebug` and `lintDevDebug`; `./gradlew tasks` lists them.
   with its assertion message, the lint errors, or the file and the forbidden import. Not the whole
   log.
 - During a task where you changed the code, including /new-feature, fix failures caused by your own
-  change and run the checks again.
+  change and run the checks again. For a failure that was there before the task, follow "Definition
+  of done" in `docs/agents/working-conventions.md`.
 - Otherwise, including during /pull-request or when the developer only asked you to verify, do not
   start fixing anything unless the developer asked for it.
 
@@ -61,4 +62,4 @@ Answer the developer with:
 - each task and check that was run and its result (passed, failed, number of tests if Gradle prints
   it),
 - each task and check that was not run, and why,
-- lint and static analysis warnings only if there are new ones in files changed on the branch.
+- lint and static analysis warnings, only those in files changed on the branch.

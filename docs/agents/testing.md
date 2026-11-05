@@ -22,6 +22,10 @@ Every new feature has tests for the code below.
 | Shared composable in `core.ui.components` | `src/androidTest` | `createComposeRule`, with data passed as parameters |
 | `Navigator` | `src/test` | Call its functions and check the resulting back stack |
 | Network model with custom names, defaults or serializers | `src/test` | Decode sample JSON with the app's `Json` configuration |
+| App-wide service with logic, such as the message queue | `src/test` | Call its functions and check the result |
+| Conversion of `UserMessage` to text | `src/androidTest` | Every value gives a non-blank string |
+
+A repository has logic when it does more than forward calls and convert models, for example when it merges or chooses between sources, filters data or refreshes stored data.
 
 ## Tools
 
@@ -30,10 +34,12 @@ JVM tests use JUnit 4, `kotlinx-coroutines-test`, Turbine and assertions from `k
 ## Rules
 
 - Screen tests cover every state the Screen can show, and check that events reach their lambdas.
-- Screen tests do not include the Route or the ViewModel, so `src/androidTest` needs no fakes.
-- Routes have no automated tests, so keep logic out of them. List what a new or changed Route does (navigation, messages, dialogs) under what the developer should test manually.
-- Fakes live in `src/test` and are named after the interface (`FakeItemRepository`). Do not use mocking libraries.
-- Inject test versions of dispatchers and `Clock`. Set `Dispatchers.Main` with a shared JUnit rule.
+- Screen tests do not include the Route or the ViewModel, so they need no fakes.
+- Routes and the connections in `NavDisplay` have no automated tests, so keep logic out of them. List what a new or changed Route or connection does (navigation, messages, dialogs) under what the developer should test manually.
+- Fakes live in `src/test` and are named after the interface (`FakeItemRepository`). A repository test in `src/androidTest` that needs a fake, for example for the network, keeps it in `src/androidTest`. Do not use mocking libraries.
+- Inject test versions of dispatchers, and of `Clock` if the code reads the current time. Set `Dispatchers.Main` with a shared JUnit rule.
+- Test waiting (`delay`) with `advanceTimeBy` on the test scheduler. It does not control `Clock`, so code that reads the current time uses the test `Clock`.
+- Give a form's ViewModel a `SavedStateHandle()` created directly in the test.
 - Test `Flow` with Turbine. `stateIn` uses `WhileSubscribed`, so a test must collect the flow for the state to update.
 - In JVM tests, call `Snapshot.sendApplyNotifications()` after changing text field state that a `snapshotFlow` reads. Otherwise the flow does not emit the change.
 - Compose tests find text through string resources, so they do not depend on the device's language.

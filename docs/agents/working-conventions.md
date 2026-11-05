@@ -2,18 +2,18 @@ Follow these working conventions in every task. "The project docs" means the pro
 
 ## Language
 
-- All code, identifiers, comments, doc comments, commit messages and branch names are in English.
+- All code, identifiers, comments, doc comments, commit messages, branch names and pull request titles and bodies are in English.
 
 ## Before writing code
 
 - Read the existing code in the area you are changing, and follow its patterns.
-- If existing code differs from the project docs, point out the difference. Do not silently follow either one, and do not rewrite unrelated code to make it match.
+- If existing code differs from the project docs, point out the difference and ask which one to follow before continuing. Do not silently follow either one, and do not rewrite unrelated code to make it match.
 - For a new feature, or a change that touches several files, start with a short plan: which files you will create or change, and in what order. Wait for the developer's approval before writing code.
 - For a small fix in one place, go ahead without a plan.
 
 ## Scope
 
-- One feature per branch. If a feature is large, split it into steps that each leave the project building with all tests passing.
+- One feature per branch. If a feature is large, split it into steps that each leave the project building with all tests passing. Each step gets its own branch and pull request from the default branch, and the next step starts after the previous one is merged.
 - Change only what the task requires. If you notice something else that should be fixed, mention it in your summary instead of changing it.
 
 ## Ask before
@@ -29,10 +29,10 @@ Decide on your own anything the project docs or the existing code already answer
 ## Git
 
 - Create a branch for each task from an up-to-date default branch (usually main), named after what it adds: feat/<name>, fix/<name>, refactor/<name>, chore/<name>, build/<name>, ci/<name>, test/<name> or docs/<name>.
-- Never commit without asking the developer first. Leave changes uncommitted so the developer can review the diff. Committing, pushing and opening a pull request are done through the /pull-request skill.
+- Never commit or push on your own. Leave changes uncommitted so the developer can review the diff. Committing, pushing and opening a pull request happen when the developer runs /pull-request. Only the developer can start that skill, so suggest it when the work is ready.
 - Commit messages and pull request titles use `<type>: <description>`, where the type is the same as the branch prefix: `feat/user-profile` → `feat: add user profile`.
 - The description is in the imperative mood, starts in lowercase, has no period at the end and keeps the whole first line under 72 characters.
-- Never push, merge, rebase onto the default branch, or force push without asking the developer first.
+- Never merge, rebase onto the default branch, or force push without asking the developer first.
 - Pull requests are merged with squash and merge, so the pull request title becomes the commit message on the default branch.
 - After a merge, start new work on a new branch from an up-to-date default branch. Never continue on a merged branch.
 
@@ -48,6 +48,8 @@ A task is done when:
 - the checks in the /verify skill pass, except those that could not be run,
 - the code and its tests follow the project docs,
 - and you have written a summary.
+
+If a check fails because of something that was already broken before the task, report it, do not fix it, and ask the developer whether the task can count as done.
 
 The summary contains:
 

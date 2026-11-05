@@ -34,6 +34,8 @@ defaults in this skill:
   Git conventions.
 - Run `git fetch origin <base>`, `git status` and `git log origin/<base>..HEAD --oneline`. If there
   is nothing to commit and no commits ahead of the base branch, stop and say so.
+- Run `gh pr view --json state,url`. If it finds a pull request that is `MERGED` or `CLOSED`, stop
+  and report its URL: new work never continues on such a branch. If it finds none, continue.
 - Run the checks in the verify skill (`.claude/skills/verify/SKILL.md`). If anything fails, stop
   and report the output. If a check could not be run,
   continue and say so under `## Notes` and in the report.
@@ -55,8 +57,7 @@ defaults in this skill:
 
 ## Create the pull request
 
-- If a pull request already exists for the branch (`gh pr view`), do not create another; report
-  its URL.
+- If an open pull request already exists for the branch, do not create another; report its URL.
 - Create it with `gh pr create --base <base> --head <current-branch> --title "<title>" --body-file <file>`.
   Write the body to a temporary file outside the repository first (the scratchpad directory, or
   `mktemp`).
@@ -88,7 +89,7 @@ Example (the commands are illustrative; use the project's own):
 
 ## Tests
 - `./gradlew testDebugUnitTest`: passed
-- `./gradlew lintDebug`: no new warnings
+- `./gradlew lintDebug`: no warnings in changed files
 
 ## Screenshots
 - TODO

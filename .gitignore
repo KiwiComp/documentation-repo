@@ -1,0 +1,53 @@
+# --- Gradle / build output ---------------------------------------------------
+.gradle/
+build/
+/captures/
+.kotlin/
+*.hprof
+
+# Native build intermediates
+.externalNativeBuild/
+.cxx/
+
+# Built artifacts (Android Studio "Generate Signed Bundle/APK" output)
+/app/release/
+*.apk
+*.aab
+
+# --- Local machine configuration -------------------------------------------
+# SDK path and other machine-specific settings
+local.properties
+
+# --- Secrets — never commit ---------------------------------------------------
+*.jks
+*.keystore
+keystore.properties
+secrets.properties
+.env
+
+# --- IDE ----------------------------------------------------------------------
+# Android Studio / IntelliJ project state is per-machine. Only code-style and
+# inspection settings are worth sharing.
+.idea/*
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+*.iml
+.navigation/
+
+# VS Code
+.vscode/
+
+# --- Claude Code ----------------------------------------------------------------
+# Personal overrides; CLAUDE.md and .claude/settings.json are shared.
+CLAUDE.local.md
+.claude/settings.local.json
+
+# --- OS ------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Misc ----------------------------------------------------------------------
+*.log
+*.orig
+*.swp

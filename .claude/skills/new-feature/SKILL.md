@@ -19,7 +19,9 @@ assume where the project is heading.
 ## 2. Clarify
 
 - Read `docs/agents/working-conventions.md`, `docs/agents/architecture-principles.md` and
-  `docs/agents/testing.md` before planning. If a file does not exist, say so and follow the patterns in the existing code.
+  `docs/agents/testing.md` before planning.
+- If the app-wide foundation in `architecture-principles.md` is missing from the code, stop and
+  suggest that the developer runs /new-project first.
 - Read the code the feature touches before asking, so questions are about real gaps, not about
   things the code already answers.
 - The feature is clear when you know:
@@ -48,6 +50,8 @@ Share the plan. Keep it short. Use these headings:
   out if there are none.
 - **Tests**: the tests that are added or changed, as `testing.md` requires.
 - **Branch**: a branch name following the Git conventions in `docs/agents/working-conventions.md`.
+  If the feature is split into steps, the plan covers the first step, and the later steps are listed
+  under Scope.
 - **Open questions**: anything still undecided. Leave the heading out if there is nothing.
 
 ## 4. Confirm
@@ -55,7 +59,8 @@ Share the plan. Keep it short. Use these headings:
 - Wait for the developer to explicitly confirm the plan. Do not start on anything else.
 - If the developer wants changes, update the plan and share it again.
 - The confirmation is the developer's instruction to create, edit, move and delete the files in
-  the plan, and only those.
+  the plan, and only those, plus files the build generates from them that belong in Git, such as
+  Room schema files.
 
 ## 5. Implement
 
