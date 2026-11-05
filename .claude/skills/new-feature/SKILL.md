@@ -7,8 +7,8 @@ argument-hint: [short description of the feature]
 
 # New feature
 
-There is no roadmap: features are chosen ad hoc. Find out what the developer wants now, do not
-assume where the project is heading.
+The developer chooses what to build next. If `docs/project-plan.md` exists, start from it, but find
+out what the developer wants now and do not assume that the plan's order still applies.
 
 ## 1. Ask
 
@@ -18,8 +18,8 @@ assume where the project is heading.
 
 ## 2. Clarify
 
-- Read `docs/agents/working-conventions.md`, `docs/agents/architecture-principles.md` and
-  `docs/agents/testing.md` before planning.
+- Read `docs/agents/working-conventions.md`, `docs/agents/architecture-principles.md`,
+  `docs/agents/testing.md` and, if it exists, `docs/project-plan.md` before planning.
 - If the app-wide foundation in `architecture-principles.md` is missing from the code, stop and
   suggest that the developer runs /new-project first.
 - Read the code the feature touches before asking, so questions are about real gaps, not about
@@ -48,6 +48,9 @@ Share the plan. Keep it short. Use these headings:
   if there are none.
 - **Database migrations**: Room schema changes and how existing data is migrated. Leave the heading
   out if there are none.
+- **Project docs**: changes to `AGENTS.md` and `docs/project-plan.md`, such as changed project facts,
+  new lasting deviations from `docs/agents/`, or marking the feature as done in the plan. Leave the
+  heading out if there are none.
 - **Tests**: the tests that are added or changed, as `testing.md` requires.
 - **Branch**: a branch name following the Git conventions in `docs/agents/working-conventions.md`.
   If the feature is split into steps, the plan covers the first step, and the later steps are listed

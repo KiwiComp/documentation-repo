@@ -6,6 +6,13 @@ disable-model-invocation: true
 
 # New project
 
+Before anything else, look for `docs/project-plan.md`. If it is missing, do not continue with this
+skill. Run `git log --all --oneline -- docs/project-plan.md`:
+
+- If it lists commits, the plan is on another branch. Stop and ask the developer to merge it and run
+  /new-project again from the updated default branch.
+- Otherwise, stop and ask the developer to run /project-plan first.
+
 Set up what `docs/agents/architecture-principles.md` describes as the app-wide foundation. Add no
 features. The project must already exist, created with Android Studio's Empty Activity template,
 in a Git repository with a GitHub remote. The template, `docs/` and `.claude/` must be committed
@@ -14,11 +21,12 @@ that commit is missing, stop and ask the developer to add it.
 
 ## 1. Read and ask
 
-- Read `docs/agents/working-conventions.md`, `docs/agents/architecture-principles.md` and
-  `docs/agents/testing.md`.
+- Read `docs/project-plan.md`, `docs/agents/working-conventions.md`,
+  `docs/agents/architecture-principles.md` and `docs/agents/testing.md`.
 - Read the Gradle files, the version catalog and the existing source. Do not create, edit, move or
   delete files in this step or the next two.
-- Ask only for what the project does not already answer:
+- Ask only for what the project plan and the project do not already answer:
+  - what the app does and who it is for,
   - which languages the app supports,
   - whether the app has tabs, and which ones,
   - the first screen, as a name only,
@@ -31,6 +39,7 @@ Share a short plan with these headings:
 - **Dependencies**: the libraries and plugins that are added. Never guess a version. If you cannot
   verify one, ask.
 - **Files**: the packages and files that are added or changed, from the list under Foundation.
+- **Project facts**: the text to write under Project facts in `AGENTS.md`.
 - **Branch**: `chore/project-setup`, following the Git conventions in
   `docs/agents/working-conventions.md`.
 - **Open questions**: anything still undecided. Leave the heading out if there is nothing.
@@ -48,6 +57,7 @@ Create the branch with `git switch -c chore/project-setup`.
 
 ### Foundation
 
+- `AGENTS.md`: fill in Project facts with the confirmed text.
 - Build: Hilt, Navigation 3, Compose and the test tools in `docs/agents/testing.md`, in the version
   catalog.
 - Root package: the `@HiltAndroidApp` application class, `MainActivity`, the root composable with the
@@ -73,8 +83,5 @@ Run the checks in the verify skill (`.claude/skills/verify/SKILL.md`). Never com
 
 ## Report
 
-Answer the developer with:
-
-- the summary described under "Definition of done" in `docs/agents/working-conventions.md`,
-- the facts to add to the project's own docs: supported languages, whether the app has tabs, and
-  whether it uses Room and the network.
+Answer the developer with the summary described under "Definition of done" in
+`docs/agents/working-conventions.md`.
