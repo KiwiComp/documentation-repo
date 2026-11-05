@@ -16,8 +16,8 @@ Every new feature has tests for the code below.
 | ViewModel | `src/test` | Fakes for repositories and app-wide services |
 | Use case | `src/test` | Fakes for repositories |
 | Repository with logic | `src/test`, or `src/androidTest` if a data source has no interface | Fakes for the interfaces of its data sources; a data source without an interface uses in-memory Room |
-| DAO with its own queries | `src/androidTest` | In-memory Room |
-| Room migration | `src/androidTest` | `MigrationTestHelper`, for every migration |
+| DAO with its own queries | `src/androidTest` | In-memory Room, built with `BundledSQLiteDriver` |
+| Room migration | `src/androidTest` | `MigrationTestHelper` from `androidx.room3:room3-testing`, with `BundledSQLiteDriver`, for every migration |
 | Every Screen | `src/androidTest` | `createComposeRule`, with data passed as parameters |
 | Shared composable in `core.ui.components` | `src/androidTest` | `createComposeRule`, with data passed as parameters |
 | `Navigator` | `src/test` | Call its functions and check the resulting back stack |
