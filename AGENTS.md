@@ -21,6 +21,7 @@ The instructions are in `.claude/skills/<name>/SKILL.md`. If your tool does not 
 | `/new-project` | Set up the app-wide foundation in a new project | Developer only |
 | `/new-feature` | Clarify, plan and implement a new feature | Developer only |
 | `/verify` | Check the project after every code change | Agent or developer |
+| `/review-changes` | Review the branch's changes for important problems | Developer only |
 | `/pull-request` | Commit, push and open a pull request | Developer only |
 
 ## Project facts

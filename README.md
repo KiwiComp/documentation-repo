@@ -27,7 +27,7 @@ The agent does not control the project. You decide what is built, what is accept
 1. **The agent proposes a plan.** It lists what it will change and in what order. It writes no code before you approve.
 2. **You approve or reject the plan.** You can also ask for changes, and the agent then shares an updated plan. Nothing starts until you explicitly approve.
 3. **The agent implements the approved plan.** It does only what the plan says. If the plan turns out to need a change, the agent stops and waits for your approval. When it is done, it runs `/verify` and writes a summary.
-4. **You review the diff.** The agent may not commit or push, so its changes stay uncommitted. Read the diff, test what the summary lists and ask for changes if needed.
+4. **You review the diff.** The agent may not commit or push, so its changes stay uncommitted. Read the diff, test what the summary lists and ask for changes if needed. You can run `/review-changes` for support, but it does not replace your own review.
 5. **You decide when the work moves on.** Only you can start `/pull-request`, which is your approval for the agent to commit, push and open a pull request. You review and merge the pull request.
 
 A small fix in one place needs no plan, so it starts at step 3. Steps 4 and 5 always apply.
@@ -53,12 +53,18 @@ The agent also asks you before it adds a dependency, deviates from the project d
 | `/new-project` | Sets up the app-wide foundation and fills in the project-specific parts of `AGENTS.md` and this file. Stops if the project plan is missing | Developer |
 | `/new-feature` | Clarifies a feature, shares a plan and implements it once you confirm | Developer |
 | `/verify` | Builds the app and runs tests, lint and the layer import check | Agent or developer |
+| `/review-changes` | Reviews the branch's changes and reports only important bugs and breaks of the project's rules. Changes nothing | Developer |
 | `/pull-request` | Commits, pushes and opens a pull request | Developer |
 
 ### Start a new project
 
 1. Create the project in Android Studio with the Empty Activity template.
-2. Copy `AGENTS.md`, `CLAUDE.md`, `README.md`, `.gitignore`, `docs/agents/` and `.claude/skills/` from the base into the project.
+2. Run this command in the project's root to get the base from its `main` branch. It overwrites files with the same name, such as the template's `.gitignore`:
+
+   ```bash
+   gh api repos/KiwiComp/documentation-repo/tarball | tar -xz --strip-components=1
+   ```
+
 3. Create the GitHub repository, then commit and push everything to the default branch.
 4. Run `/project-plan`, then `/pull-request`, and merge the pull request.
 5. Run `/new-project`, then `/pull-request`, and merge the pull request.
@@ -66,7 +72,7 @@ The agent also asks you before it adds a dependency, deviates from the project d
 ### Build a feature
 
 1. Run `/new-feature`, answer its questions and confirm the plan.
-2. Review the changes and test what the agent's summary lists.
+2. Review the changes and test what the agent's summary lists. Run `/review-changes` if you want support.
 3. Run `/pull-request` and merge the pull request.
 
 For a small fix, describe it to the agent directly and run `/pull-request` when you are happy with it.
