@@ -48,9 +48,10 @@ Share the plan. Keep it short. Use these headings:
   if there are none.
 - **Database migrations**: Room schema changes and how existing data is migrated. Leave the heading
   out if there are none.
-- **Project docs**: changes to `AGENTS.md` and `docs/project-plan.md`, such as changed project facts,
-  new lasting deviations from `docs/agents/`, or marking the feature as done in the plan. Leave the
-  heading out if there are none.
+- **Project docs**: changes to `AGENTS.md`, `README.md` and `docs/project-plan.md`, such as changed
+  project facts, new setup steps, new lasting deviations from `docs/agents/`, listing the feature
+  under Features in the README, or marking it as done in the plan. Leave the heading out if there
+  are none.
 - **Tests**: the tests that are added or changed, as `testing.md` requires.
 - **Branch**: a branch name following the Git conventions in `docs/agents/working-conventions.md`.
   If the feature is split into steps, the plan covers the first step, and the later steps are listed

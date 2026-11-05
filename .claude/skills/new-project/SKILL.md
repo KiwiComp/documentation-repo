@@ -27,6 +27,7 @@ that commit is missing, stop and ask the developer to add it.
   delete files in this step or the next two.
 - Ask only for what the project plan and the project do not already answer:
   - what the app does and who it is for,
+  - any setup a developer needs besides opening the project, such as API keys,
   - which languages the app supports,
   - whether the app has tabs, and which ones,
   - the first screen, as a name only,
@@ -39,7 +40,8 @@ Share a short plan with these headings:
 - **Dependencies**: the libraries and plugins that are added. Never guess a version. If you cannot
   verify one, ask.
 - **Files**: the packages and files that are added or changed, from the list under Foundation.
-- **Project facts**: the text to write under Project facts in `AGENTS.md`.
+- **Project facts**: the text to write under Project facts in `AGENTS.md`, and the app name,
+  description and setup step to write in `README.md`.
 - **Branch**: `chore/project-setup`, following the Git conventions in
   `docs/agents/working-conventions.md`.
 - **Open questions**: anything still undecided. Leave the heading out if there is nothing.
@@ -58,6 +60,8 @@ Create the branch with `git switch -c chore/project-setup`.
 ### Foundation
 
 - `AGENTS.md`: fill in Project facts with the confirmed text.
+- `README.md`: replace the placeholders for the app name, the description and the setup step with
+  the confirmed text. Write "None yet" under Features.
 - Build: Hilt, Navigation 3, Compose and the test tools in `docs/agents/testing.md`, in the version
   catalog.
 - Root package: the `@HiltAndroidApp` application class, `MainActivity`, the root composable with the
