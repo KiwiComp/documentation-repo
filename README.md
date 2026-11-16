@@ -1,4 +1,5 @@
 **About this repository**
+
 This is the base I start every Android project from when building with AI agents. It keeps the agent within my architecture and conventions, and makes sure I approve every plan, review every diff and decide what gets merged. Lessons learnt from projects I build come back here.
 
 The sections below are placeholders that `/new-project` fills in for each app. To see how the workflow runs, start at [Working with agents](#working-with-agents).
